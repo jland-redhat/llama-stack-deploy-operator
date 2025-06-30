@@ -12,8 +12,8 @@ spec:
       env:
       - name: INFERENCE_MODEL
         value: "granite-33-2b-instruct"
-      - name: OLLAMA_URL
-        value: "http://granite-33-2b-instruct-predictor.model-as-a-service.svc.cluster.local"
+      - name: VLLM_URL
+        value: "http://granite-33-2b-instruct-predictor.model-as-a-service.svc.cluster.local/v1"
     storage:
       size: "20Gi"
       mountPath: "/home/lls/.lls"
