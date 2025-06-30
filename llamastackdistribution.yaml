@@ -6,7 +6,7 @@ spec:
   replicas: 1
   server:
     distribution:
-      name: vllm
+      name: remote-vllm
     containerSpec:
       port: 8321
       env:
