@@ -1,5 +1,5 @@
 playground:
-  image: quay.io/jland/llama-playground:v0.2.12
+  image: quay.io/jland/llama-stack-playground:v0.2.12
 
 llamastackdistribution:
   vllm:
