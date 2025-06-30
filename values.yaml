@@ -3,5 +3,5 @@ playground:
 
 llamastackdistribution:
   vllm:
-    url: "http://granite-33-2b-instruct-predictor.model-as-a-service.svc.cluster.local/v1"
+    url: "http://granite-33-2b-instruct-predictor.model-as-a-service.svc.cluster.local:8080/v1"
     model: "granite-33-2b-instruct"
