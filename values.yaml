@@ -1,0 +1,7 @@
+playground:
+  image: quay.io/jland/llama-playground:v0.2.12
+
+llamastackdistribution:
+  vllm:
+    url: "http://granite-33-2b-instruct-predictor.model-as-a-service.svc.cluster.local/v1"
+    model: "granite-33-2b-instruct"

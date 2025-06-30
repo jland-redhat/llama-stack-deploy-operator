@@ -11,9 +11,9 @@ spec:
       port: 8321
       env:
       - name: INFERENCE_MODEL
-        value: "granite-33-2b-instruct"
+        value: {{ .Values.llamastackdistribution.vllm.model }}
       - name: VLLM_URL
-        value: "http://granite-33-2b-instruct-predictor.model-as-a-service.svc.cluster.local/v1"
+        value: {{ .Values.llamastackdistribution.vllm.url }}
     storage:
       size: "20Gi"
       mountPath: "/home/lls/.lls"

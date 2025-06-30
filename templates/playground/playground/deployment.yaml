@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llama-stack-playground
+  labels:
+    app: llama-stack-playground
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llama-stack-playground
+  template:
+    metadata:
+      labels:
+        app: llama-stack-playground
+    spec:
+      containers:
+        - name: llama-stack-playground
+          image: {{ .Values.playground.image }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: LLAMA_STACK_ENDPOINT
+              value: "http://llamastackdistribution-sample-service:8321"
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
