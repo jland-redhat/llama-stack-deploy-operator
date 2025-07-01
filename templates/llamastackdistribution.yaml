@@ -9,11 +9,26 @@ spec:
       name: remote-vllm
     containerSpec:
       port: 8321
+      args:
+        - "--yaml-config"
+        - "/config/run.yaml"
       env:
       - name: INFERENCE_MODEL
         value: {{ .Values.llamastackdistribution.vllm.model }}
       - name: VLLM_URL
         value: {{ .Values.llamastackdistribution.vllm.url }}
+      - name: OTEL_TRACE_ENDPOINT
+        value: {{ .Values.llamastackdistribution.otel_trace_endpoint }}
+      - name: OTEL_METRIC_ENDPOINT
+        value: {{ .Values.llamastackdistribution.otel_metric_endpoint }}
+    podOverrides:
+      volumeMounts:
+      - name: config-volume
+        mountPath: /config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: run-config
     storage:
       size: "20Gi"
       mountPath: "/home/lls/.lls"

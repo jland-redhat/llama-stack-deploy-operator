@@ -5,3 +5,5 @@ llamastackdistribution:
   vllm:
     url: "http://granite-33-2b-instruct-predictor.model-as-a-service.svc.cluster.local:8080/v1"
     model: "granite-33-2b-instruct"
+  otel_trace_endpoint: "http://otel-collector-collector.redhat-ods-monitoring.svc.cluster.local:4318/v1/traces"
+  otel_metric_endpoint: "http://otel-collector-collector.redhat-ods-monitoring.svc.cluster.local:4318/v1/metrics"
