@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: llama-distribution
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: llama-serve
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    helm:
+      values: 'cronjob.schedule: "1 * * * *"'
+    path: .
+    repoURL: 'https://github.com/jland-redhat/llama-stack-deploy-operator.git'
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}

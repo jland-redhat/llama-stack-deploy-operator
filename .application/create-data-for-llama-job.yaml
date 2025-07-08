@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: create-data-for-llama-job
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: llama-serve
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    helm:
+      parameters:
+        - name: numRequests
+          value: '100'
+    path: create-traffic-for-llm/chart
+    repoURL: 'https://github.com/Jaland/utility-scripts.git'
+    targetRevision: HEAD

@@ -1,0 +1,341 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  creationTimestamp: '2025-06-30T18:52:04Z'
+  generation: 2738
+  managedFields:
+    - apiVersion: argoproj.io/v1alpha1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          .: {}
+          'f:destination':
+            .: {}
+            'f:namespace': {}
+            'f:server': {}
+          'f:project': {}
+          'f:source':
+            .: {}
+            'f:helm':
+              .: {}
+              'f:values': {}
+            'f:path': {}
+            'f:repoURL': {}
+            'f:targetRevision': {}
+          'f:syncPolicy':
+            .: {}
+            'f:automated': {}
+        'f:status':
+          .: {}
+          'f:health': {}
+          'f:sourceHydrator': {}
+          'f:summary': {}
+          'f:sync':
+            .: {}
+            'f:comparedTo':
+              .: {}
+              'f:destination': {}
+              'f:source': {}
+      manager: argocd-server
+      operation: Update
+      time: '2025-07-07T14:19:30Z'
+    - apiVersion: argoproj.io/v1alpha1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:history': {}
+          'f:sourceType': {}
+          'f:controllerNamespace': {}
+          'f:sync':
+            'f:comparedTo':
+              'f:destination':
+                'f:namespace': {}
+                'f:server': {}
+              'f:source':
+                'f:helm':
+                  .: {}
+                  'f:values': {}
+                'f:path': {}
+                'f:repoURL': {}
+                'f:targetRevision': {}
+            'f:revision': {}
+            'f:status': {}
+          'f:health':
+            'f:lastTransitionTime': {}
+            'f:status': {}
+          'f:resources': {}
+          'f:summary':
+            'f:images': {}
+          'f:reconciledAt': {}
+          'f:operationState':
+            .: {}
+            'f:finishedAt': {}
+            'f:message': {}
+            'f:operation':
+              .: {}
+              'f:initiatedBy':
+                .: {}
+                'f:automated': {}
+              'f:retry':
+                .: {}
+                'f:limit': {}
+              'f:sync':
+                .: {}
+                'f:revision': {}
+            'f:phase': {}
+            'f:startedAt': {}
+            'f:syncResult':
+              .: {}
+              'f:resources': {}
+              'f:revision': {}
+              'f:source':
+                .: {}
+                'f:path': {}
+                'f:repoURL': {}
+                'f:targetRevision': {}
+      manager: argocd-application-controller
+      operation: Update
+      time: '2025-07-08T19:24:43Z'
+  name: llama-distribution
+  namespace: openshift-gitops
+  resourceVersion: '12738291'
+  uid: d9f6570f-fac8-4d86-8c00-6194d1752379
+spec:
+  destination:
+    namespace: llama-serve
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    helm:
+      values: 'cronjob.schedule: "1 * * * *"'
+    path: .
+    repoURL: 'https://github.com/jland-redhat/llama-stack-deploy-operator.git'
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}
+status:
+  resources:
+    - kind: ConfigMap
+      name: run-config
+      namespace: llama-serve
+      status: Synced
+      version: v1
+    - health:
+        status: Healthy
+      kind: Service
+      name: llama-stack-playground
+      namespace: llama-serve
+      status: Synced
+      version: v1
+    - group: apps
+      health:
+        status: Healthy
+      kind: Deployment
+      name: llama-stack-playground
+      namespace: llama-serve
+      status: Synced
+      version: v1
+    - group: llamastack.io
+      kind: LlamaStackDistribution
+      name: llamastackdistribution-sample
+      namespace: llama-serve
+      status: Synced
+      version: v1alpha1
+    - group: route.openshift.io
+      health:
+        message: Route is healthy
+        status: Healthy
+      kind: Route
+      name: llama-stack-playground
+      namespace: llama-serve
+      status: Synced
+      version: v1
+  summary:
+    images:
+      - 'docker.io/llamastack/distribution-remote-vllm:latest'
+      - 'quay.io/jland/llama-stack-playground:v0.2.12'
+  reconciledAt: '2025-07-08T19:24:43Z'
+  operationState:
+    finishedAt: '2025-07-01T00:56:33Z'
+    message: successfully synced (all tasks run)
+    operation:
+      initiatedBy:
+        automated: true
+      retry:
+        limit: 5
+      sync:
+        revision: 9c0bd98bc8f40c04fe81c7f8ceca9d9b5731c3c6
+    phase: Succeeded
+    startedAt: '2025-07-01T00:56:31Z'
+    syncResult:
+      resources:
+        - syncPhase: Sync
+          message: configmap/run-config configured
+          name: run-config
+          status: Synced
+          kind: ConfigMap
+          version: v1
+          hookPhase: Running
+          namespace: llama-serve
+          group: ''
+        - syncPhase: Sync
+          message: service/llama-stack-playground unchanged
+          name: llama-stack-playground
+          status: Synced
+          kind: Service
+          version: v1
+          hookPhase: Running
+          namespace: llama-serve
+          group: ''
+        - syncPhase: Sync
+          message: deployment.apps/llama-stack-playground unchanged
+          name: llama-stack-playground
+          status: Synced
+          kind: Deployment
+          version: v1
+          hookPhase: Running
+          namespace: llama-serve
+          group: apps
+        - syncPhase: Sync
+          message: route.route.openshift.io/llama-stack-playground unchanged
+          name: llama-stack-playground
+          status: Synced
+          kind: Route
+          version: v1
+          hookPhase: Running
+          namespace: llama-serve
+          group: route.openshift.io
+        - syncPhase: Sync
+          message: llamastackdistribution.llamastack.io/llamastackdistribution-sample unchanged
+          name: llamastackdistribution-sample
+          status: Synced
+          kind: LlamaStackDistribution
+          version: v1alpha1
+          hookPhase: Running
+          namespace: llama-serve
+          group: llamastack.io
+      revision: 9c0bd98bc8f40c04fe81c7f8ceca9d9b5731c3c6
+      source:
+        path: .
+        repoURL: 'https://github.com/jland-redhat/llama-stack-deploy-operator.git'
+        targetRevision: HEAD
+  sourceHydrator: {}
+  history:
+    - deployStartedAt: '2025-06-30T23:52:41Z'
+      deployedAt: '2025-06-30T23:52:43Z'
+      id: 5
+      initiatedBy:
+        automated: true
+      revision: 38fa0bfd41007a509ccd983972dc4dbc1e687eef
+      source:
+        path: .
+        repoURL: 'https://github.com/jland-redhat/llama-stack-deploy-operator.git'
+        targetRevision: HEAD
+    - deployStartedAt: '2025-06-30T23:53:37Z'
+      deployedAt: '2025-06-30T23:53:39Z'
+      id: 6
+      initiatedBy:
+        username: cluster-admin
+      revision: 38fa0bfd41007a509ccd983972dc4dbc1e687eef
+      source:
+        path: .
+        repoURL: 'https://github.com/jland-redhat/llama-stack-deploy-operator.git'
+        targetRevision: HEAD
+    - deployStartedAt: '2025-06-30T23:55:00Z'
+      deployedAt: '2025-06-30T23:55:02Z'
+      id: 7
+      initiatedBy:
+        username: cluster-admin
+      revision: d23309942f717eda8d266a299f51cdc07aae197d
+      source:
+        path: .
+        repoURL: 'https://github.com/jland-redhat/llama-stack-deploy-operator.git'
+        targetRevision: HEAD
+    - deployStartedAt: '2025-07-01T00:42:10Z'
+      deployedAt: '2025-07-01T00:42:12Z'
+      id: 8
+      initiatedBy:
+        automated: true
+      revision: 6577c5e05d91f2ed8419adc98c8f19ce35c99eda
+      source:
+        path: .
+        repoURL: 'https://github.com/jland-redhat/llama-stack-deploy-operator.git'
+        targetRevision: HEAD
+    - deployStartedAt: '2025-07-01T00:42:19Z'
+      deployedAt: '2025-07-01T00:42:22Z'
+      id: 9
+      initiatedBy:
+        username: cluster-admin
+      revision: 6577c5e05d91f2ed8419adc98c8f19ce35c99eda
+      source:
+        path: .
+        repoURL: 'https://github.com/jland-redhat/llama-stack-deploy-operator.git'
+        targetRevision: HEAD
+    - deployStartedAt: '2025-07-01T00:44:59Z'
+      deployedAt: '2025-07-01T00:45:02Z'
+      id: 10
+      initiatedBy:
+        automated: true
+      revision: e8b1a32957cf31de2c81da0f9f1c5f819bb21028
+      source:
+        path: .
+        repoURL: 'https://github.com/jland-redhat/llama-stack-deploy-operator.git'
+        targetRevision: HEAD
+    - deployStartedAt: '2025-07-01T00:48:14Z'
+      deployedAt: '2025-07-01T00:48:16Z'
+      id: 11
+      initiatedBy:
+        automated: true
+      revision: 61e146ac6cc334da55e717ecaabcf1413c66ed08
+      source:
+        path: .
+        repoURL: 'https://github.com/jland-redhat/llama-stack-deploy-operator.git'
+        targetRevision: HEAD
+    - deployStartedAt: '2025-07-01T00:49:29Z'
+      deployedAt: '2025-07-01T00:49:37Z'
+      id: 12
+      initiatedBy:
+        automated: true
+      revision: 65fa56b6fde01f6596eeb6e6369e0cf96b1b1d33
+      source:
+        path: .
+        repoURL: 'https://github.com/jland-redhat/llama-stack-deploy-operator.git'
+        targetRevision: HEAD
+    - deployStartedAt: '2025-07-01T00:54:56Z'
+      deployedAt: '2025-07-01T00:54:58Z'
+      id: 13
+      initiatedBy:
+        automated: true
+      revision: 00061616d199f4f7eb16a1dcefd87fbb8170ca9b
+      source:
+        path: .
+        repoURL: 'https://github.com/jland-redhat/llama-stack-deploy-operator.git'
+        targetRevision: HEAD
+    - deployStartedAt: '2025-07-01T00:56:31Z'
+      deployedAt: '2025-07-01T00:56:33Z'
+      id: 14
+      initiatedBy:
+        automated: true
+      revision: 9c0bd98bc8f40c04fe81c7f8ceca9d9b5731c3c6
+      source:
+        path: .
+        repoURL: 'https://github.com/jland-redhat/llama-stack-deploy-operator.git'
+        targetRevision: HEAD
+  sourceType: Helm
+  sync:
+    comparedTo:
+      destination:
+        namespace: llama-serve
+        server: 'https://kubernetes.default.svc'
+      source:
+        helm:
+          values: 'cronjob.schedule: "1 * * * *"'
+        path: .
+        repoURL: 'https://github.com/jland-redhat/llama-stack-deploy-operator.git'
+        targetRevision: HEAD
+    revision: 54c4978f427281680649b2234dc70f7095c694e4
+    status: Synced
+  health:
+    lastTransitionTime: '2025-06-30T23:55:08Z'
+    status: Healthy
+  controllerNamespace: openshift-gitops
