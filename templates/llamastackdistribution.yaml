@@ -24,6 +24,8 @@ spec:
         value: {{ .Values.llamastackdistribution.otel_trace_endpoint }}
       - name: OTEL_METRIC_ENDPOINT
         value: {{ .Values.llamastackdistribution.otel_metric_endpoint }}
+      - name: OTEL_SERVICE_NAME
+        value: {{ .Values.llamastackdistribution.otel_service_name }}
     podOverrides:
       volumeMounts:
       - name: config-volume

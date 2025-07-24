@@ -7,3 +7,4 @@ llamastackdistribution:
     model: "granite-33-2b-instruct"
   otel_trace_endpoint: "http://otel-collector-collector.redhat-ods-monitoring.svc.cluster.local:4318/v1/traces"
   otel_metric_endpoint: "http://otel-collector-collector.redhat-ods-monitoring.svc.cluster.local:4318/v1/metrics"
+  otel_service_name: "llama-stack-distribution"
